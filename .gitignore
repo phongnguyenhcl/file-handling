@@ -4,3 +4,4 @@ target
 .project
 pom.xml
 .classpath
+src/test/*
