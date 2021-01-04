@@ -30,7 +30,7 @@ public class FileHandling {
 				String[] nameNumber = line.split(",");
 				name = nameNumber[0];
 				number = nameNumber[1];
-				System.out.printf("%d. %s: %s%n",count, name, number);
+				System.out.printf("%d. %s: %s%n", count, name, number);
 				count++;
 			}
 		} catch (IOException e) {
@@ -65,19 +65,35 @@ public class FileHandling {
 		}
 	}
 
+	// append a contact to the end of the contact list
+	void addContact(String[] contact) {
+		File fileToBeAppended = new File(this.file);
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileToBeAppended));
+				FileWriter writer = new FileWriter(fileToBeAppended, true)) {
+			String line = contact[0] + "," + contact[1];
+			writer.write(line);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) throws IOException {
 		String file = "src/main/java/contacts.txt";
 
-		/****************Read and Print contacts list**********/
+		/**************** Read and Print contacts list **********/
 		System.out.println("Printing the contacts: ");
 		FileHandling fileHandling = new FileHandling(file);
 		fileHandling.printContacts();
-		/****************Update a contact with a new one******/
-		String[] oldContact = {"Danh", "444-444-4444"};
-		String[] newContact = {"Tuyet", "123-456-7890"};
+		/**************** Update a contact with a new one ******/
+		String[] oldContact = { "Danh", "444-444-4444" };
+		String[] newContact = { "Tuyet", "123-456-7890" };
 		fileHandling.updateContact(oldContact, newContact);
-		System.out.println("\n\nAfter Update:\n");
+		System.out.println("\nAfter Update:\n");
 		fileHandling.printContacts();
-		
+		/**************** Append a contact*********************/
+		String[] contactToBeAppended = {"Reviewer", "000-000-0000"}; 
+		fileHandling.addContact(contactToBeAppended);
+		System.out.println("\nAfter Append:\n");
+		fileHandling.printContacts();
 	}
 }
