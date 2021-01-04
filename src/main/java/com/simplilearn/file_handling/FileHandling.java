@@ -66,7 +66,7 @@ public class FileHandling {
 	}
 
 	// append a contact to the end of the contact list
-	void addContact(String[] contact) {
+	void addContact(String[] contact) throws IOException {
 		File fileToBeAppended = new File(this.file);
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileToBeAppended));
 				FileWriter writer = new FileWriter(fileToBeAppended, true)) {
@@ -81,19 +81,19 @@ public class FileHandling {
 		String file = "src/main/java/contacts.txt";
 
 		/**************** Read and Print contacts list **********/
-		System.out.println("Printing the contacts: ");
+		System.out.println("Printing the contacts:\n");
 		FileHandling fileHandling = new FileHandling(file);
 		fileHandling.printContacts();
 		/**************** Update a contact with a new one ******/
 		String[] oldContact = { "Danh", "444-444-4444" };
 		String[] newContact = { "Tuyet", "123-456-7890" };
 		fileHandling.updateContact(oldContact, newContact);
-		System.out.println("\nAfter Update:\n");
+		System.out.println("\nAfter Update: Danh to Tuyet\n");
 		fileHandling.printContacts();
-		/**************** Append a contact*********************/
-		String[] contactToBeAppended = {"Reviewer", "000-000-0000"}; 
+		/**************** Append a contact *********************/
+		String[] contactToBeAppended = { "Reviewer", "000-000-0000" };
 		fileHandling.addContact(contactToBeAppended);
-		System.out.println("\nAfter Append:\n");
+		System.out.println("\nAfter Append: Reviewer\n");
 		fileHandling.printContacts();
 	}
 }
